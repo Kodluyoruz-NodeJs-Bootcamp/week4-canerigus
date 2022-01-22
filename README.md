@@ -5,6 +5,9 @@ The project creates a user info and saves it into local mongo database with /reg
 
 ![authhome](https://user-images.githubusercontent.com/61908293/150197444-e7876236-ef1e-49f6-93e9-254ed4a0bc33.png)
 
+
+![asd](https://user-images.githubusercontent.com/61908293/150652324-754357fa-8789-4a4c-9778-59909e9b1e3c.png)
+
 ## How It Works
 After a user is registered, user can now login fron the /login route. The login route creates a JWT token and a sessionID which includes the username. 
 
