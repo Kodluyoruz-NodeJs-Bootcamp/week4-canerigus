@@ -18,7 +18,6 @@ import { errorHandler } from "./src/utils/ErrorHandler";
 import { sessionOptions } from "./src/config/config"
 //database connection
 import { connectDatabase } from "./src/config/config";  
-
 //app options
 const app = express();
 connectDatabase();
@@ -38,7 +37,6 @@ app.use('/', Routes)
 //invalid route handler next'ed into error handler below to be catched, so that we can display the error.
 app.all('*', NotFound)
 app.use(errorHandler);
-
 
 app.listen(process.env.PORT || 3000, () => {
   console.log(`Serving on port ${process.env.PORT}`);
