@@ -100,14 +100,15 @@ export const renderUsers: RequestHandler =  async (req, res) => {
   //const user = await User.findOne({ username: req.session.username });
   //find the current user by token
   //the request body is sent via /login post temporarily to /users get. So we can get the info we need from req.body.
-  const user = await getRepository(User).findOne({ username: req.body.name });
+  const currentUser = await getRepository(User).findOne({ username: req.body.name });
+  const otherUsers = await getRepository(User).find({})
   const session = req.sessionID
   const token = req.cookies.token
   //token expiration date
   const expDate = new Date(req.body.exp * 1000).toLocaleString('tr-TR', { timeZone: 'Turkey' })
   //token initiation date
   const iatDate = new Date(req.body.iat * 1000).toLocaleString('tr-TR', { timeZone: 'Turkey' })
-  res.render('users', { user, session, token, expDate, iatDate })
+  res.render('users', { currentUser, session, token, expDate, iatDate, otherUsers })
 }
 
 //logout controller
