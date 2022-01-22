@@ -1,5 +1,4 @@
 import type { ErrorRequestHandler } from "express";
-
 //Extend Error Class for Non-existing pages
 export class ExpressError extends Error {
   message: string;
@@ -10,7 +9,6 @@ export class ExpressError extends Error {
     this.statusCode = statusCode;
   } 
 }
-
 //define errorHandler for app.use
 export const errorHandler: ErrorRequestHandler = ((err, req, res, next) => {
   //destructuring ExpressError message & statusCode 

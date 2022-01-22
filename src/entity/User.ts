@@ -1,5 +1,6 @@
 import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
 
+//create entity for mysql database.
 @Entity()
 export class User {
 

@@ -1,6 +1,5 @@
 import { createConnection } from "typeorm"
-//db connection
-
+//typeorm database connection fn. initiated in app.ts
 export const connectDatabase = async () => {
   try {
     await createConnection();

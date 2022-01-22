@@ -1,10 +1,8 @@
 import { RequestHandler } from "express";
 import { ExpressError } from "../utils/ErrorHandler";
 import * as bcrypt from 'bcrypt'
-/* import {User, IUser} from '../model/user'; */
 import { generateAccessToken } from "../utils/middleware"
-
-import {createConnection, getRepository} from "typeorm";
+import {getRepository} from "typeorm";
 import {User} from "../entity/User";
 
 //app use controller. available every req/res
@@ -103,7 +101,6 @@ export const renderUsers: RequestHandler =  async (req, res) => {
   //find the current user by token
   //the request body is sent via /login post temporarily to /users get. So we can get the info we need from req.body.
   const user = await getRepository(User).findOne({ username: req.body.name });
-  
   const session = req.sessionID
   const token = req.cookies.token
   //token expiration date
