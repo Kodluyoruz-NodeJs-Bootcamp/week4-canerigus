@@ -18,12 +18,12 @@ export const handleViews: RequestHandler = (req, res, next) => {
 
 //home get controller
 export const renderHome: RequestHandler = (req, res) => {
-  res.render('home')
+  res.status(200).render('home')
 }
 
 //register get controller
 export const renderRegister: RequestHandler = (req, res)  => {
-  res.render('register')
+  res.status(200).render('register')
 }
 
 //register post controller
@@ -44,18 +44,18 @@ export const register: RequestHandler = async (req, res)  => {
     //save the new User into database.
     await getRepository(User).save(user)
     req.flash('success', 'Successfully signed up!')
-    res.redirect('login')
+    res.status(200).redirect('login')
   } catch (e) {
-    //catch if user.save throws an error. in order words the username should already exist in database since it is the only unique property.
+    //catch if save throws an error. in order words the username should already exist in database since it is the only unique property.
     req.flash('error', 'Something went wrong!. Maybe the username already in use!')
-    res.redirect('register')
+    res.status(502).redirect('register')
   }
 }
 
 
 //login get controller
 export const renderLogin: RequestHandler = (req, res)  => {
-  res.render('login')
+  res.status(200).render('login')
 }
 
 //login post controller
@@ -67,7 +67,7 @@ export const login: RequestHandler = async (req, res) => {
   //if user doesnt exist in database, redirect.
   if (!user) {
     req.flash('error', 'User not found!')
-    return res.redirect('login')
+    return res.status(401).redirect('login')
   }
   try {
   //if user exists in database, then compare the given info with the one in db. in other words, check if the password is correct with bcrypt compare. 
@@ -81,15 +81,15 @@ export const login: RequestHandler = async (req, res) => {
       //username added into session info.
       req.session.username = user.username;
       req.flash('success', 'Successfully logged in!')
-      res.redirect('users')
+      res.status(200).redirect('users')
     } else {
       req.flash('error', 'Wrong username or password!')
-      return res.redirect('login')
+      return res.status(401).redirect('login')
     }
 
   } catch (e) {
     req.flash('error', 'Sorry, something went wrong while loggin in!')
-    res.redirect('login')
+    res.status(502).redirect('login')
   }
 }
 
@@ -108,14 +108,14 @@ export const renderUsers: RequestHandler =  async (req, res) => {
   const expDate = new Date(req.body.exp * 1000).toLocaleString('tr-TR', { timeZone: 'Turkey' })
   //token initiation date
   const iatDate = new Date(req.body.iat * 1000).toLocaleString('tr-TR', { timeZone: 'Turkey' })
-  res.render('users', { currentUser, session, token, expDate, iatDate, otherUsers })
+  res.status(200).render('users', { currentUser, session, token, expDate, iatDate, otherUsers })
 }
 
 //logout controller
 export const logout: RequestHandler = (req, res)  => {
   req.session.username = null;
   res.clearCookie('token');
-  res.redirect('/');
+  res.status(200).redirect('/');
 }
 
 //unknown url handler

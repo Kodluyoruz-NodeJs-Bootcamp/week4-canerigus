@@ -10,7 +10,7 @@ export const generateAccessToken = (user: Object) => {
 export const requireLogin: RequestHandler = (req, res, next) => {
   if (!req.session.username) {
     req.flash('error', 'Session Not Found')
-    return res.redirect('login')
+    return res.status(401).redirect('login')
   }
   next();
 }
@@ -24,7 +24,7 @@ export const authenticateToken: RequestHandler = async (req, res, next) => {
      //if token is null, set req.session.username to null to change navbar. sets res.locals.currentUser's length to 0.
     req.session.username = null;
     req.flash('error', 'Token Not Found!')
-    return res.status(401).redirect('login')
+    return res.status(403).redirect('login')
   }
   try {
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
@@ -35,7 +35,7 @@ export const authenticateToken: RequestHandler = async (req, res, next) => {
     //if token is invalid, set req.session.username to null to change navbar. sets res.locals.currentUser's length to 0.
     req.session.username = null;
     req.flash('error', 'Token is not valid!')
-    return res.status(403).redirect('login')
+    return res.status(401).redirect('login')
   }
   }
 
