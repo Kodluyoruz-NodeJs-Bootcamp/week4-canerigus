@@ -1,0 +1,31 @@
+<%- include('partials/header')%>
+<body class="d-flex flex-column vh-100">
+  <%- include('partials/navbar')%>
+  <main class="container m-auto">
+    <%- include('partials/flash')%>
+    <div class="container d-flex justify-content-center align-items-center">
+      <div class="row">
+        <div class="card-body">
+          <h5 class="card-title">Current User</h5>
+          <% if(user.id === 1) {%>
+            <h6 class="card-title">You are the <%=user.id%>st user!</h6>
+            <% } else if (user.id === 2){%>
+              <h6 class="card-title">You are the <%=user.id%>nd user!</h6>
+            <% } else {  %>
+              <h6 class="card-title">You are the <%=user.id%>th user!</h6>
+            <% } %>
+          <ul>
+            <li><b> Name: </b> <%= user.name %></li>
+            <li><b> Surname: </b> <%= user.surname %></li>
+            <li><b> Username: </b> <%= user.username %></li>
+            <li><b> Session ID: </b> <%= session %></li>
+            <li><b> Token ID: </b> <%= token %></li>
+            <li><b> Token Initiation: </b> <%= iatDate %></li>
+            <li><b> Token Expiration: </b> <%= expDate %></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    </div>
+  </main>
+  <%- include('partials/footer')%>
