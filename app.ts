@@ -2,7 +2,6 @@ import dotenv from "dotenv"
 if (process.env.NODE_ENV !== 'production') { dotenv.config() }
 
 import "reflect-metadata";
-import {createConnection} from "typeorm";
 
 import session from 'express-session';
 import express from 'express';
