@@ -20,6 +20,7 @@ import { sessionOptions } from "./src/config/config"
 import { connectDatabase } from "./src/config/config";  
 //app options
 const app = express();
+//database connection initialized. details in config.ts
 connectDatabase();
 
 app.use(cookieParser());
