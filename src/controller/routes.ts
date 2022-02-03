@@ -22,8 +22,13 @@ export const renderHome: RequestHandler = (req, res) => {
 }
 
 //register get controller
-export const renderRegister: RequestHandler = (req, res)  => {
-  res.status(200).render('register')
+export const renderRegister: RequestHandler = async (req, res) => {
+  if (!req.session.username) {
+    return res.status(200).render('register')
+  }
+  req.flash('success', 'Welcome back!');
+  const user = await getRepository(User).findOne({username: req.session.username})
+  return res.status(200).redirect(`/users`);
 }
 
 //register post controller
@@ -54,8 +59,13 @@ export const register: RequestHandler = async (req, res)  => {
 
 
 //login get controller
-export const renderLogin: RequestHandler = (req, res)  => {
-  res.status(200).render('login')
+export const renderLogin: RequestHandler = async (req, res) => {
+  if (!req.session.username) {
+    return res.status(200).render('login')
+  }
+  req.flash('success', 'Welcome back!');
+  const user = await getRepository(User).findOne({username: req.session.username})
+  return res.status(200).redirect(`/users`);
 }
 
 //login post controller
